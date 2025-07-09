@@ -7,6 +7,9 @@ import org.example.Client;
 import org.example.Evenement;
 import org.example.Lieu;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,9 +32,10 @@ public class BilleterieIHM {
             switch (entry) {
                 case "1"-> creationClients();
                 case "2"-> afficherClients();
-                case "3"-> gererEvenements();
-                case "4"-> gererLieux();
-                case "5"-> reserverBillet();
+                case "3"-> creationEvent();
+                case "4"-> afficherEvents();
+                case "5"-> gererLieux();
+                case "6"-> reserverBillet();
                 default -> {
                     return;
                 }
@@ -43,7 +47,8 @@ public class BilleterieIHM {
         return """
             1/ ajouter un client
             2/ afficher les clients
-            3/ Gérer les évènements
+            3/ ajouter un évènement
+            4/ afficher les évènements
             4/ Gérer les lieux
             5/ Réserver votre billet
                 """;
@@ -77,8 +82,35 @@ public class BilleterieIHM {
         }
     }
 
-    private void gererEvenements() {
-        System.out.println("Gestion des événements");
+    private void creationEvent() {
+        System.out.println("Création de l'évènement");
+        System.out.println("Nom : ");
+        String nom = scanner.nextLine();
+        System.out.print("Lieu : ");
+        String lieu = scanner.nextLine();
+        System.out.print("Date : ");
+        System.out.print("Date (format: yyyy-MM-dd) : ");
+        String dateStr = scanner.nextLine();
+        LocalDate date = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        System.out.print("Heure (format: HH:mm) : ");
+        String heureStr = scanner.nextLine();
+        LocalTime heure = LocalTime.parse(heureStr, DateTimeFormatter.ofPattern("HH:mm"));
+        System.out.print("nombre de Place: ");
+        int nbPlace = scanner.nextInt();
+        scanner.nextLine();
+
+        Evenement evenement = new Evenement(nom, Lieu, date, heure, nbPlace);
+        billeterie.ajouterEvenement(evenement);
+
+        System.out.println("Evènement ajouté avec succès!");
+    }
+
+    private void afficherEvents() {
+        System.out.println("Affichage des évènements : ");
+        List<Evenement> evenements = billeterie.getEvenements();
+        for (int i = 0; i < evenements.size(); i++) {
+            System.out.println(i + ": " + evenements.get(i));
+        }
     }
 
     private void gererLieux() {
@@ -104,10 +136,10 @@ public class BilleterieIHM {
 
             System.out.println("Types de place: 1=STANDARD, 2=GOLD, 3=VIP");
             System.out.print("Type de place: ");
-            int typeChoix = scanner.nextInt();
+            int typeEntry = scanner.nextInt();
             scanner.nextLine();
 
-            TypePlace typePlace = TypePlace.values()[typeChoix - 1];
+            TypePlace typePlace = TypePlace.values()[typeEntry - 1];
 
             Billet billet = billeterie.reserverBillet(nClient, nEvent, numeroPlace, typePlace);
             System.out.println("Billet réservé: " + billet);
