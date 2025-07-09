@@ -6,7 +6,7 @@ public class Billet {
     private Evenement evenement;
     private TypePlace place;
 
-    private Billet(int numeroPlace, Client client, Evenement evenement, TypePlace place){
+    public Billet(int numeroPlace, Client client, Evenement evenement, TypePlace place){
         this.numeroPlace = numeroPlace;
         this.client = client;
         this.evenement = evenement;

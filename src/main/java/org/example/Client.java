@@ -6,26 +6,26 @@ import java.util.List;
 public class Client {
     private String nom;
     private String prenom;
-    private String adresse;
+    private String adressePostale;
     private int age;
     private String telephone;
     private List<Billet> billets;
 
-    public Client (String nom, String prenom, String adresse, int age, String telephone){
+    public Client (String nom, String prenom, String adressePostale, int age, String telephone){
         this.nom = nom;
         this.prenom = prenom;
-        this.adresse = adresse;
+        this.adressePostale = adressePostale;
         this.age = age;
         this.telephone = telephone;
         this.billets = new ArrayList<>();
     }
 
-    public String getAdresse() {
-        return adresse;
+    public String getAdressePostale() {
+        return adressePostale;
     }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
+    public void setAdressePostale(String adressePostale) {
+        this.adressePostale = adressePostale;
     }
 
     public int getAge() {
@@ -60,7 +60,7 @@ public class Client {
         this.telephone = telephone;
     }
 
-    public List<Billet> getBillets() {
+    public List<Billet> getBillet() {
         return billets;
     }
 
@@ -75,7 +75,7 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "adresse='" + adresse + '\'' +
+                "Adresse postale='" + adressePostale + '\'' +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", age=" + age +
